@@ -1,0 +1,280 @@
+{
+  "name": "electron-react-boilerplate",
+  "productName": "CAN tool",
+  "version": "0.1.0",
+  "description": "tool to receive signal from/send signal to can bus",
+  "scripts": {
+    "build": "concurrently \"npm run build-main\" \"npm run build-renderer\"",
+    "build-dll": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.dev.dll.js --colors",
+    "build-main": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.main.prod.js --colors",
+    "build-renderer": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.prod.js --colors",
+    "dev": "cross-env START_HOT=1 node -r babel-register ./internals/scripts/CheckPortInUse.js && cross-env START_HOT=1 npm run start-renderer-dev",
+    "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional --module-dir app",
+    "flow": "flow",
+    "flow-typed": "rimraf flow-typed/npm && flow-typed install --overwrite || true",
+    "lint": "eslint --cache --format=node_modules/eslint-formatter-pretty .",
+    "lint-fix": "npm run lint -- --fix",
+    "lint-styles": "stylelint app/*.css app/components/*.css --syntax scss",
+    "lint-styles-fix": "stylefmt -r app/*.css app/components/*.css",
+    "package": "npm run build && build --publish never",
+    "package-all": "npm run build && build -mwl",
+    "package-linux": "npm run build && build --linux",
+    "package-win": "npm run build && build --win --x64",
+    "postinstall": "node -r babel-register internals/scripts/CheckNativeDep.js && npm run flow-typed && npm run build-dll && electron-builder install-app-deps && node node_modules/fbjs-scripts/node/check-dev-engines.js package.json",
+    "prestart": "npm run build",
+    "start": "cross-env NODE_ENV=production electron ./app/",
+    "start-main-dev": "cross-env HOT=1 NODE_ENV=development electron -r babel-register ./app/main.dev",
+    "start-renderer-dev": "cross-env NODE_ENV=development node --trace-warnings -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config webpack.config.renderer.dev.js",
+    "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings ./test/runTests.js",
+    "test-all": "npm run lint && npm run flow && npm run build && npm run test && npm run test-e2e",
+    "test-e2e": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings ./test/runTests.js e2e",
+    "test-watch": "npm test -- --watch"
+  },
+  "browserslist": "electron 1.6",
+  "build": {
+    "productName": "ElectronReact",
+    "appId": "org.develar.ElectronReact",
+    "files": [
+      "dist/",
+      "node_modules/",
+      "app.html",
+      "main.prod.js",
+      "main.prod.js.map",
+      "package.json"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "AppImage"
+      ],
+      "category": "Development"
+    },
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chentsulin/electron-react-boilerplate.git"
+  },
+  "author": {
+    "name": "C. T. Lin",
+    "email": "chentsulin@gmail.com",
+    "url": "https://github.com/chentsulin"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chentsulin/electron-react-boilerplate/issues"
+  },
+  "keywords": [
+    "electron",
+    "boilerplate",
+    "react",
+    "redux",
+    "flow",
+    "sass",
+    "webpack",
+    "hot",
+    "reload"
+  ],
+  "homepage": "https://github.com/chentsulin/electron-react-boilerplate#readme",
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/fileMock.js",
+      "\\.(css|less|sass|scss)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "app/node_modules"
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "setupFiles": [
+      "./internals/scripts/CheckBuiltsExist.js"
+    ]
+  },
+  "binary": {
+    "module_name": "node_libcan",
+    "module_path": "./lib/binding/",
+    "remote_path": "./v{version}/"
+  },
+  "bundledDependencies": [
+    "node-pre-gyp"
+  ],
+  "devDependencies": {
+    "autoprefixer": "^7.2.4",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.3",
+    "babel-jest": "^22.0.1",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-dev-expression": "^0.2.1",
+    "babel-plugin-dynamic-import-webpack": "^1.0.2",
+    "babel-plugin-flow-runtime": "^0.15.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-es2015-classes": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-react-optimize": "^1.0.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "chalk": "^2.3.0",
+    "concurrently": "^3.5.1",
+    "cross-env": "^5.1.1",
+    "cross-spawn": "^5.1.0",
+    "css-loader": "^0.28.7",
+    "detect-port": "^1.2.2",
+    "electron": "^1.8.2-beta.2",
+    "electron-builder": "^19.55.2",
+    "electron-devtools-installer": "^2.2.3",
+    "electron-rebuild": "^1.6.0",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.0",
+    "eslint": "^4.13.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-formatter-pretty": "^1.3.0",
+    "eslint-import-resolver-webpack": "^0.8.3",
+    "eslint-plugin-compat": "^2.1.0",
+    "eslint-plugin-flowtype": "^2.40.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jest": "^21.5.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-react": "^7.5.1",
+    "express": "^4.16.2",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "fbjs-scripts": "^0.8.1",
+    "file-loader": "^1.1.6",
+    "flow-bin": "^0.61.0",
+    "flow-runtime": "^0.16.0",
+    "flow-typed": "^2.2.3",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^22.0.1",
+    "jsdom": "^11.5.1",
+    "minimist": "^1.2.0",
+    "node-sass": "^4.7.2",
+    "npm-logical-tree": "^1.2.0",
+    "pixrem": "^4.0.1",
+    "pleeease-filters": "^4.0.0",
+    "postcss-calc": "^5.3.1",
+    "postcss-color-function": "^3.0.0",
+    "postcss-custom-media": "^5.0.1",
+    "postcss-custom-properties": "^5.0.2",
+    "postcss-custom-selectors": "^3.0.0",
+    "postcss-extend": "^1.0.3",
+    "postcss-flexbugs-fixes": "^2.1.0",
+    "postcss-grid-kiss": "^1.1.0",
+    "postcss-import": "^9.1.0",
+    "postcss-loader": "^1.3.1",
+    "postcss-media-minmax": "^2.1.2",
+    "postcss-mixins": "^6.0.1",
+    "postcss-nested": "^1.0.0",
+    "postcss-nesting": "^2.3.1",
+    "postcss-partial-import": "^3.1.1",
+    "postcss-selector-matches": "^2.0.5",
+    "postcss-selector-not": "^2.0.0",
+    "postcss-simple-vars": "^3.0.0",
+    "postcss-url": "^5.1.2",
+    "react-test-renderer": "^16.2.0",
+    "redux-logger": "^3.0.6",
+    "rimraf": "^2.6.2",
+    "sass-loader": "^6.0.6",
+    "sinon": "^4.1.3",
+    "spectron": "^3.7.2",
+    "style-loader": "^0.19.1",
+    "stylefmt": "^6.0.0",
+    "stylelint": "^8.4.0",
+    "stylelint-config-standard": "^18.0.0",
+    "uglifyjs-webpack-plugin": "1.1.4",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.10.0",
+    "webpack-bundle-analyzer": "^2.9.1",
+    "webpack-dev-server": "^2.9.7",
+    "webpack-merge": "^4.1.1"
+  },
+  "dependencies": {
+    "bindings": "^1.3.0",
+    "classnames": "^2.2.5",
+    "cmake-js": "^3.5.0",
+    "devtron": "^1.4.0",
+    "electron-debug": "^1.4.0",
+    "electron-store": "^1.3.0",
+    "font-awesome": "^4.7.0",
+    "fs-extra": "^5.0.0",
+    "history": "^4.7.2",
+    "humps": "^2.0.1",
+    "i18next": "10.2.2",
+    "i18next-xhr-backend": "1.5.0",
+    "immutability-helper": "^2.6.2",
+    "material-design-icons": "^3.0.1",
+    "material-ui": "1.0.0-beta.32",
+    "material-ui-icons": "^1.0.0-beta.17",
+    "minilog": "^3.1.0",
+    "mkdirp": "^0.5.1",
+    "moment": "^2.20.1",
+    "node-addon-api": "1.1.0",
+    "node-can": "file:../node-can",
+    "node-gyp": "^3.6.2",
+    "normalizr": "^3.2.4",
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-hot-loader": "3.1.3",
+    "react-i18next": "^7.3.0",
+    "react-intl": "^2.4.0",
+    "react-notification-system-redux": "^1.2.0",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^5.0.0-alpha.6",
+    "react-virtualized": "^9.16.1",
+    "react-sortable-tree": "^1.8.1",
+    "recompose": "^0.26.0",
+    "redux": "^3.7.2",
+    "redux-actions": "^2.2.1",
+    "redux-observable": "^0.17.0",
+    "redux-persist": "^5.4.0",
+    "redux-thunk": "^2.2.0",
+    "redux-ui": "^0.1.1",
+    "redux-watch": "^1.1.1",
+    "reselect": "^3.0.1",
+    "rxjs": "^5.5.5",
+    "source-map-support": "^0.5.0",
+    "xml2js": "^0.4.19"
+  },
+  "devEngines": {
+    "node": ">=7.x",
+    "npm": ">=4.x",
+    "yarn": ">=0.21.3"
+  }
+}

@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  height: 100vh;
+  flex-direction: row;
+
+}
+
+.topbar {
+  flex: 0 0 auto;
+  display: flex;
+}
+
+.tabs {
+  flex: 0 0 auto;
+  display: flex;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.content {
+  flex: 1 0 auto;
+  flex-direction: column;
+  display: flex;
+  color: rgba(100, 100, 100, 0.6);
+  background-color: #eee;
+}
+
+.tabcontent {
+  flex: 1 1 auto;
+  display: flex;
+  color: rgba(100, 100, 100, 0.6);
+}
+
+.main {
+  padding-top: 4rem;
+  flex: 1 1 auto;
+  display: flex;
+  color: rgba(100, 100, 100, 0.6);
+}
+
+.switch {
+  flex: 1 0 auto;
+  justify-items: flex-end;
+}

@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.input {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  width: 1.5rem;
+  align-self: center;
+}
+
+.icon {
+  align-self: center;
+}
+
