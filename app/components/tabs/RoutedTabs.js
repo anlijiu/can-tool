@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import matchPath from 'react-router-dom/matchPath';
 import { withRouter } from 'react-router'
-import Tabs from 'material-ui/Tabs';
+import Tabs from '@material-ui/core/Tabs';
 
 @withRouter
 class RoutedTabs extends React.Component {

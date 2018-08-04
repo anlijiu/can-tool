@@ -8,6 +8,7 @@ import fireEpic from './fireEpic'
 import setWeaponEpic from './setWeaponEpic'
 
 import { combineEpics } from 'redux-observable';
+import {catchError} from "rxjs/operators";
 
 
 const epics = (action$, store) => combineEpics(
@@ -19,12 +20,9 @@ const epics = (action$, store) => combineEpics(
   ceaseFireEpic,
   fireEpic,
   setWeaponEpic
-)(action$, store)
-  .catch((error, stream) => {
-    console.log(error)
-    console.log(stream)
-    return stream
-  })
+)(action$, store).pipe(
+  catchError((err, caught) => caught),
+)
 
 
 export default epics

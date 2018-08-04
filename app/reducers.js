@@ -14,7 +14,6 @@ import strategy from 'strategy'
 import hasRehydrated from './modules/persist'
 import createElectronStorage from './storage'
 
-// import { reducer as uiReducer } from 'redux-ui'
 
 
 const config = {

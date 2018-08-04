@@ -1,6 +1,6 @@
 import React from 'react'
 import RoutedTabs from '../../components/tabs/RoutedTabs'
-import { Tab } from 'material-ui/Tabs'
+import Tab from '@material-ui/core/Tab'
 import { NavLink } from "react-router-dom";
 import { withRouter } from 'react-router'
 import { injectIntl } from "react-intl"

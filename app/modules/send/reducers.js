@@ -4,6 +4,7 @@ import update from 'immutability-helper'
 import {
   START_SEND_ACTION,
   STOP_SEND_ACTION,
+  SEND_ALREADY_STARTED,
   AFTER_START_SEND_ACTION,
   SELECT_MESSAGE_ACTION,
   FOCUS_ON_MESSAGE_ACTION
@@ -29,6 +30,7 @@ const reducer = handleActions({
     })
   ),
   [AFTER_START_SEND_ACTION]: (state, {payload}) => ({ ...state, stream: payload}),
+  [SEND_ALREADY_STARTED]: (state) => state ,
   [SELECT_MESSAGE_ACTION]:  (state, {payload}) => {
     console.log(payload)
     let ids = payload.isChecked ?  [
@@ -46,7 +48,7 @@ const reducer = handleActions({
   [STOP_SEND_ACTION]: (state, {payload}) => {
     return {
       ...state,
-      v: null,
+      stream: null,
       sending: false,
     }
   },

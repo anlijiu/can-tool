@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import matchPath from 'react-router-dom/matchPath';
 import { withRouter } from 'react-router'
-import { MenuList } from 'material-ui/Menu';
+import MenuList from '@material-ui/core/MenuList';
+
+console.log("MenuList is ", MenuList)
 
 @withRouter
 class RoutedLists extends React.Component {

@@ -6,7 +6,6 @@ import { WindowScroller, CellMeasurer, CellMeasurerCache, Grid, List, AutoSizer 
 import { isUndefined, isNull, isEmpty } from 'lodash';
 import { compose, withPropsOnChange, defaultProps, withProps, renameProp, withHandlers, withState, pure, toClass, setDisplayName } from 'recompose'
 import DelegatesManager from './DelegatesManager'
-import ui from 'redux-ui'
 import s from './ListView.css';
 import classNames from 'classnames/bind'
 const cx = classNames.bind(s);

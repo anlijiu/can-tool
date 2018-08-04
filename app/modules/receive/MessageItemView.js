@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { isUndefined, isNull, isEmpty } from 'lodash';
 import { compose, pure, setDisplayName } from 'recompose'
-import Checkbox from 'material-ui/Checkbox';
+import Checkbox from '@material-ui/core/Checkbox';
 import sendActions from "./actions";
 import s from './MessageItemView.css'
 import classNames from 'classnames/bind'

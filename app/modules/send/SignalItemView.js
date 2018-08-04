@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { isUndefined, isNull, isEmpty } from 'lodash';
-import AddIcon from 'material-ui-icons/Add';
-import RemoveIcon from 'material-ui-icons/Remove';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 import { Root as Strategy } from "strategy"
 
 import s from './SignalItemView.css'

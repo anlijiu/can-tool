@@ -10,7 +10,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Switch } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import { injectIntl } from "react-intl"
-import Typography from 'material-ui/Typography';
+import Typography from '@material-ui/core/Typography';
 import { dbcSelectors } from "dbc"
 import EmptyView from './EmptyView'
 const {dialog} = require('electron').remote

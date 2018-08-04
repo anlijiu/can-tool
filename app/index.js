@@ -4,7 +4,8 @@ import {render} from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
 import moment from 'moment'
 import App from './containers/App';
-import {configureStore, history} from './store/configureStore';
+// import {configureStore, history} from './store/configureStore';
+import _configureStore from './store/configureStore';
 import './app.global.css';
 import zh_CN from './locales/zh_CN';
 import en from './locales/en';
@@ -18,8 +19,8 @@ const {ipcRenderer} = require('electron')
 // import Agent from 'node-can'
 import './utils/rx'
 
-import { signalsDefsSelectors } from './modules/dbc'
 
+const { configureStore, history } = _configureStore
 const { store, persistor} = configureStore();
 
 let w = watch(store.getState, 'signalsDefs.messages')

@@ -1,13 +1,15 @@
 import React from 'react'
-import { ListItemIcon, ListItemText } from 'material-ui/List';
-import { MenuItem } from 'material-ui/Menu';
-import InboxIcon from 'material-ui-icons/MoveToInbox';
-import DraftsIcon from 'material-ui-icons/Drafts';
-import StarIcon from 'material-ui-icons/Star';
-import SendIcon from 'material-ui-icons/Send';
-import MailIcon from 'material-ui-icons/Mail';
-import DeleteIcon from 'material-ui-icons/Delete';
-import ReportIcon from 'material-ui-icons/Report';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import MenuItem from '@material-ui/core/MenuItem';
+import InboxIcon from '@material-ui/icons/Inbox';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import StarIcon from '@material-ui/icons/Star';
+import SendIcon from '@material-ui/icons/Send';
+import MailIcon from '@material-ui/icons/Mail';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ReportIcon from '@material-ui/icons/Report';
 import { NavLink } from "react-router-dom";
 import { withRouter } from 'react-router'
 import { injectIntl } from "react-intl"

@@ -4,8 +4,7 @@ import { bindActionCreators } from 'redux'
 
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router'
-import SortableTree from 'react-sortable-tree';
-import Typography from 'material-ui/Typography';
+import Typography from '@material-ui/core/Typography';
 import { injectIntl } from "react-intl"
 import { success, error } from 'react-notification-system-redux';
 

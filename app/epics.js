@@ -1,4 +1,5 @@
 import { combineEpics } from 'redux-observable';
+import { catchError } from 'rxjs/operators'
 import { epics as send } from 'send'
 import { dbcEpics } from 'dbc'
 import { receiveEpics } from 'receive'
@@ -11,12 +12,12 @@ const rootEpics = (action$, store) => combineEpics(
   receiveEpics,
   dbcEpics,
   nativeEpics
-)(action$, store)
-  .catch((error, stream) => {
-    console.log(error)
-    console.log(stream)
-    return stream
-  })
+)(action$, store).pipe(
+  catchError((err, caught) => {
+    console.log(err)
+    return caught
+  }),
+)
 
 
 export default rootEpics

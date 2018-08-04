@@ -5,7 +5,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router'
 
 
-import Typography from 'material-ui/Typography';
+import Typography from '@material-ui/core/Typography';
 import { injectIntl } from "react-intl"
 
 import s from './root.css'

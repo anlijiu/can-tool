@@ -7,12 +7,12 @@ import { withRouter } from 'react-router'
 
 import selectors from './selectors'
 import actions from './actions'
-import Typography from 'material-ui/Typography';
+import Typography from '@material-ui/core/Typography';
 import { injectIntl } from "react-intl"
-import AddIcon from 'material-ui-icons/Add';
-import RemoveIcon from 'material-ui-icons/Remove';
-import IconButton from 'material-ui/IconButton';
-import Input from 'material-ui/Input';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
+import IconButton from '@material-ui/core/IconButton';
+import Input from '@material-ui/core/Input';
 import Notifications from 'react-notification-system-redux';
 import { success, error } from 'react-notification-system-redux';
 import s from './root.css'

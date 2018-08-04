@@ -1,7 +1,9 @@
 
 import React from 'react';
-import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import InboxIcon from 'material-ui-icons/MoveToInbox';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import InboxIcon from '@material-ui/icons/Inbox';
 
 
 export const menulist1 = (formatMessage, handleClick) => {

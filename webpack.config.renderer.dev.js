@@ -7,15 +7,16 @@
  * https://webpack.js.org/concepts/hot-module-replacement/
  */
 
-import path from 'path';
-import fs from 'fs';
-import webpack from 'webpack';
-import chalk from 'chalk';
-import merge from 'webpack-merge';
-import { spawn, execSync } from 'child_process';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import baseConfig from './webpack.config.base';
-import CheckNodeEnv from './internals/scripts/CheckNodeEnv';
+import path from 'path'
+import fs from 'fs'
+import webpack from 'webpack'
+import chalk from 'chalk'
+import merge from 'webpack-merge'
+import { spawn, execSync } from 'child_process'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import MiniCssExtractPlugin from "mini-css-extract-plugin"
+import baseConfig from './webpack.config.base'
+import CheckNodeEnv from './internals/scripts/CheckNodeEnv'
 
 CheckNodeEnv('development');
 
@@ -39,6 +40,7 @@ export default merge.smart(baseConfig, {
   target: 'electron-renderer',
 
   entry: [
+    '@babel/polyfill',
     'react-hot-loader/patch',
     `webpack-dev-server/client?http://localhost:${port}/`,
     'webpack/hot/only-dev-server',
@@ -74,31 +76,69 @@ export default merge.smart(baseConfig, {
           loader: 'babel-loader',
           options: {
             cacheDirectory: true,
+            babelrc: false,
             plugins: [
+              "@babel/plugin-transform-modules-commonjs",
+              // Stage 0
+              "@babel/plugin-proposal-function-bind",
+              // Stage 1
+              "@babel/plugin-proposal-export-default-from",
+              "@babel/plugin-proposal-logical-assignment-operators",
+              ["@babel/plugin-proposal-optional-chaining", { "loose": false }],
+              ["@babel/plugin-proposal-pipeline-operator", { "proposal": "minimal" }],
+              ["@babel/plugin-proposal-nullish-coalescing-operator", { "loose": false }],
+              "@babel/plugin-proposal-do-expressions",
+              // Stage 2
+              ["@babel/plugin-proposal-decorators", { "legacy": true }],
+              "@babel/plugin-proposal-function-sent",
+              "@babel/plugin-proposal-export-namespace-from",
+              "@babel/plugin-proposal-numeric-separator",
+              "@babel/plugin-proposal-throw-expressions",
+              // Stage 3
+              "@babel/plugin-syntax-dynamic-import",
+              "@babel/plugin-syntax-import-meta",
+              ["@babel/plugin-proposal-class-properties", { "loose": false }],
+              "@babel/plugin-proposal-json-strings",
+
+              "@babel/plugin-transform-runtime",
+              "@babel/plugin-transform-classes",
+              "@babel/plugin-transform-react-constant-elements",
+              "@babel/plugin-transform-react-inline-elements",
               // Here, we include babel plugins that are only required for the
               // renderer process. The 'transform-*' plugins must be included
               // before react-hot-loader/babel
-              'transform-decorators-legacy',
-              'transform-class-properties',
-              'transform-es2015-classes',
-              'react-hot-loader/babel'
+              'react-hot-loader/babel',
             ],
-            presets: ['es2017']
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  targets: {
+                    "node": "current",
+                  },
+                  forceAllTransforms: false, // for UglifyJS
+                  modules: false,
+                  useBuiltIns: false,
+                  debug: false,
+                },
+              ],
+              // Flow
+              // https://github.com/babel/babel/tree/master/packages/babel-preset-flow
+              '@babel/preset-flow',
+              // JSX
+              // https://github.com/babel/babel/tree/master/packages/babel-preset-react
+              ['@babel/preset-react', { development: true}],
+
+            ],
+            ignore: ['node_modules', 'build'],
           }
         }
       },
       {
         test: /\.global\.css$/,
         use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-            },
-          }
+          MiniCssExtractPlugin.loader,
+          'css-loader',
         ]
       },
       {
@@ -256,7 +296,7 @@ export default merge.smart(baseConfig, {
       debug: true
     }),
 
-    new ExtractTextPlugin({
+    new MiniCssExtractPlugin({
       filename: '[name].css'
     }),
   ],

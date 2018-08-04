@@ -2,8 +2,8 @@ import React from 'react'
 import { compose } from 'recompose';
 import s from './EmptyView.css'
 import { injectIntl } from "react-intl"
-import Icon from 'material-ui/Icon';
-import Typography from 'material-ui/Typography';
+import Icon from '@material-ui/core/Icon';
+import Typography from '@material-ui/core/Typography';
 
 export default class EmptyView extends React.PureComponent {
   constructor(props) {

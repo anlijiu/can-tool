@@ -4,29 +4,29 @@ import { bindActionCreators } from 'redux'
 
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { withRouter } from 'react-router'
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 import { activeTabSelector } from './selectors'
-import Tabs, { Tab } from 'material-ui/Tabs'
+import Tabs, { Tab } from '@material-ui/core/Tabs'
 import RoutedTabs from '../../components/tabs/RoutedTabs'
 import HomeTabs from './HomeTabs'
 import HomeNavLists from './HomeNavLists'
 import classNames from 'classnames';
-import Drawer from 'material-ui/Drawer';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import List from 'material-ui/List';
-import Typography from 'material-ui/Typography';
-import Divider from 'material-ui/Divider';
-import IconButton from 'material-ui/IconButton';
-import Paper from 'material-ui/Paper';
-import MenuIcon from 'material-ui-icons/Menu';
-import ChevronLeftIcon from 'material-ui-icons/ChevronLeft';
-import ChevronRightIcon from 'material-ui-icons/ChevronRight';
-import SwitchComponent from 'material-ui/Switch';
+import Drawer from '@material-ui/core/Drawer';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import Paper from '@material-ui/core/Paper';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import SwitchComponent from '@material-ui/core/Switch';
 import Notifications from 'react-notification-system-redux'
 import { injectIntl } from "react-intl"
-import green from 'material-ui/colors/green';
+import green from '@material-ui/core/colors/green';
 
 import s from './root.css'
 import TopBar from './topbar'
@@ -191,7 +191,7 @@ export default class Root extends PureComponent {
 
   handleActive = (tab) => {
     console.log("handleActive  ", tab)
-  }
+  };
 
   handleDeviceSwitch = (event, checked) => {
     // this.setState({ [name]: checked });
@@ -214,7 +214,7 @@ export default class Root extends PureComponent {
         }
       );
     }
-  }
+  };
 
   render() {
     const {

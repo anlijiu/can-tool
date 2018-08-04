@@ -1,15 +1,17 @@
-import { Observable } from 'rxjs/Observable'
+import { Observable, OperatorFunction, merge } from "rxjs";
+import { switchMap, takeUntil } from "rxjs/operators";
+import { ofType } from 'redux-observable';
 import types from '../types'
-import { getWeaponsSuccess } from '../actions'
+import actions from '../actions'
 
-const epics = (action$, store) => {
-  return action$.ofType(types.GET_WEAPONS)
-    .switchMap(action => Observable.from([ipcRenderer.send('action:get:weapons')])
-      .flatMap(content => {
-        console.log(content)
-        return Observable.of(getWeaponsSuccess(content))
-      })
+const epics = (action$, state$) =>
+  action$.pipe(
+    ofType(types.GET_WEAPONS),
+    switchMap(action => from([ipcRenderer.send('action:get:weapons')]).pipe(
+        flatMap(content => of(getWeaponsSuccess(content)))
+      )
     )
-}
+  )
+
 
 export default epics;

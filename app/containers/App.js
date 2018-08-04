@@ -11,7 +11,7 @@ import { sendSelectors } from "send"
 import { strategySelectors } from "strategy";
 import { nativeActions} from "../modules/nativelayer/index";
 
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { injectIntl } from "react-intl"
 import {syncMetaData} from "../modules/nativelayer/actions";
 

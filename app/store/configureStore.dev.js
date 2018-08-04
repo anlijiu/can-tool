@@ -10,14 +10,13 @@ import {
 import { createEpicMiddleware } from 'redux-observable'
 import rootEpic from '../epics'
 
-
 const history = createHashHistory()
 
 const configureStore = (initialState?: counterStateType) => {
   // Redux Configuration
   const enhancers = []
 
-  const epicMiddleware = createEpicMiddleware(rootEpic);
+  const epicMiddleware = createEpicMiddleware();
   // Create a history of your choosing (we're using a browser history in this case)
   const middleware = [routerMiddleware(history), epicMiddleware]
 
@@ -43,6 +42,7 @@ const configureStore = (initialState?: counterStateType) => {
 
   // Apply Middleware & Compose Enhancers
   enhancers.push(applyMiddleware(...middleware));
+
   const enhancer = composeEnhancers(...enhancers);
 
   // Create Store
@@ -58,6 +58,8 @@ const configureStore = (initialState?: counterStateType) => {
   const persistor = persistStore(store);
 
   persistor.purge()
+
+  epicMiddleware.run(rootEpic)
 
   return { persistor, store };
 };

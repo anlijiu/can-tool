@@ -2,10 +2,10 @@ import React from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
-import { withStyles } from 'material-ui/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 const {dialog} = require('electron').remote
 
 import { dbcActions } from 'dbc'
