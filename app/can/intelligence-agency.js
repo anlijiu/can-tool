@@ -1,9 +1,9 @@
 // const { Agent, IntelligenceAgency } = require('bindings')('can')
 import { entries } from '../utils/object'
-const __mod = require('bindings')('can')
+import can from 'node-can'
 const {ipcMain} = require('electron')
 
-const _IntelligenceAgency = require('bindings')('can').IntelligenceAgency;
+const _IntelligenceAgency = can.IntelligenceAgency;
 
 export default class IntelligenceAgeny {
   static onMessage(func) {

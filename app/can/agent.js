@@ -1,11 +1,11 @@
 // const { Agent, IntelligenceAgency } = require('bindings')('can')
 import { entries } from '../utils/object'
-const __mod = require('bindings')('can')
+import can from 'node-can'
 const {ipcMain} = require('electron')
 
 export default class Agent {
   constructor() {
-    this._instance = new __mod.Agent()
+    this._instance = new can.Agent()
     this.registerRendererEvents()
   }
 
