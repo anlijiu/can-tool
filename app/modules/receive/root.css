@@ -1,4 +1,22 @@
+.wrapper {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+}
+
+.titlecontainer {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.title {
+  margin: 1rem 0 .5rem;
+  color: #333;
+}
+
 .container {
+  margin: 0rem 1rem 0.3rem;
   display: flex;
   flex: 1 0 auto;
   flex-direction: row;

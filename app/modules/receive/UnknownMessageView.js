@@ -28,9 +28,14 @@ export default class Root extends Component {
     } = this.props
     const { id, raw } = unknown
 
+    const idClass = cx({
+      current: true,
+      id: true
+    })
+
     return (
       <div className={s.container} onClick={this.onClickItem} >
-        <div className={s.current}>
+        <div className={idClass}>
           {id}
         </div>
         <div className={s.current}>

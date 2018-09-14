@@ -12,6 +12,8 @@ const zh_CN = {
   out_of_range_min_max: '超出范围: {min}-{max}',
   error: "错误",
   no_data: "无数据",
+  received_signals: "接收到的信号",
+  unknown_messages: "未知数据帧",
 }
 
 export default zh_CN;

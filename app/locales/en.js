@@ -12,6 +12,8 @@ const en = {
   out_of_range_min_max: 'Out of range: {min}-{max}',
   error: "Error",
   no_data: "no data",
+  received_signals: "received signals",
+  unknown_messages: "unknown messages",
 }
 
 export default en;

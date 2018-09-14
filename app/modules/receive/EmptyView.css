@@ -1,4 +1,6 @@
 .container {
+  margin: 0rem 0.5rem 0.3rem;
+  background-color: white;
   flex: 1 0 auto;
   display: flex;
   justify-content: center;

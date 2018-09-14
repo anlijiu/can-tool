@@ -14,8 +14,12 @@
 .current {
   opacity: 1;
   pointer-events: auto;
-  color: color(#1b6ac9);
+  color: color(#333);
   display: inline-flex;
   align-items: center;
-  margin: .3rem;
+  margin: .6rem;
+}
+
+.id {
+  color: color(#1b6ac9);
 }

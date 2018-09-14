@@ -83,29 +83,38 @@ export default class Root extends Component {
     } = this.props
 
     return (
-      <div className={s.container}>
-        { signalIds.length == 0 ?
-            <EmptyView
-              emptyMessage={formatMessage({id: "no_data"})}
-            /> :
-            <ListView
-              list={signalIds}
-              itemView={SignalItemView}
-              windowScrollerEnabled={false}
-              />
-        }
-        <br />
-        { unknownIds.length == 0 ?
-            <EmptyView
-              emptyMessage={formatMessage({id: "no_data"})}
-            /> :
-            <ListView
-              list={unknownIds}
-              itemView={UnknownMessageView}
-              windowScrollerEnabled={false}
-              />
-        }
+      <div className={s.wrapper}>
+        <div className={s.titlecontainer}>
+          <div className={s.title}>
+            {formatMessage({id: "received_signals"})}
+          </div>
+          <div className={s.title}>
+            {formatMessage({id: "unknown_messages"})}
+          </div>
+        </div>
+        <div className={s.container}>
+          { signalIds.length == 0 ?
+              <EmptyView
+                emptyMessage={formatMessage({id: "no_data"})}
+              /> :
+              <ListView
+                list={signalIds}
+                itemView={SignalItemView}
+                windowScrollerEnabled={false}
+                />
+          }
+          { unknownIds.length == 0 ?
+              <EmptyView
+                emptyMessage={formatMessage({id: "no_data"})}
+              /> :
+              <ListView
+                list={unknownIds}
+                itemView={UnknownMessageView}
+                windowScrollerEnabled={false}
+                />
+          }
       </div>
+    </div>
     );
   }
 }
