@@ -19,7 +19,7 @@ action$.pipe(
     flatMap(content => {
       const message = JSON.parse(content).candb.message
       console.log(" message     are   ", message, "  candb is ", JSON.parse(content).candb);
-      const {entities, result} = normalize(JSON.parse(content).candb.message, Schemas.MESSAGE_ARRAY)
+      const {entities, result} = normalize(JSON.parse(content).candb.message, Schemas.MESSAGE_META_ARRAY)
       console.log(" entities     is    ", entities, " result is", result)
       let strategies = {};
 

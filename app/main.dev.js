@@ -61,7 +61,7 @@ app.on('window-all-closed', () => {
 app.on('ready', async () => {
   if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
     //注释掉是因为被墙，　下载不下来
-    // await installExtensions();
+    await installExtensions();
   }
 
   mainWindow = new BrowserWindow({
@@ -69,6 +69,7 @@ app.on('ready', async () => {
     width: 1024,
     height: 728
   });
+  mainWindow.setMenu(null)
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
@@ -86,10 +87,10 @@ app.on('ready', async () => {
     mainWindow = null;
   });
 
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
+  // const menuBuilder = new MenuBuilder(mainWindow);
+  // menuBuilder.buildMenu();
 
-  const agent = new Agent()
+  const agent = new Agent(mainWindow)
 
   // IntelligenceAgency.onMessageChange(message => console.log(message))
 

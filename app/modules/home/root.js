@@ -42,7 +42,6 @@ const { ipcRenderer } = require('electron')
 
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("state is    ", state)
   return {
     notifications: state.notifications,
     activeTab: activeTabSelector(state)

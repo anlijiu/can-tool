@@ -13,6 +13,8 @@ import actions from './actions'
 import ListView from "components/ListView/ListView"
 import MessageItemView from "./MessageItemView"
 import SignalItemView from "./SignalItemView"
+import UnknownMessageView from "./UnknownMessageView"
+import EmptyView from './EmptyView';
 import { Message, Signal }  from "./models";
 import s from './root.css'
 
@@ -23,15 +25,10 @@ const forMessage = (items, position) => items[position] instanceof Message
 const forSignal = (items, position) => items[position] instanceof Signal
 
 
-
-
 const mapStateToProps = (state, ownProps) => {
-  console.log("state is    ", state)
   return {
-    receiving: selectors.receivingSelector(state),
-    known: selectors.knownSelector(state),
-    unknown: selectors.unknownSelector(state),
-    all: selectors.allEntriesSelector(state)
+    unknownIds: selectors.unknownIdsSelector(state),
+    signalIds: selectors.signalIdsSelector(state),
   }
 }
 
@@ -39,6 +36,7 @@ const mapDispatchToProps = dispatch => {
   return {
     startReceiveLoop: bindActionCreators(actions.startReceiveLoop, dispatch),
     stopReceiveLoop: bindActionCreators(actions.stopReceiveLoop, dispatch),
+    receivedMessages: bindActionCreators(actions.acquireReceivedMessages, dispatch)
   }
 }
 
@@ -52,12 +50,23 @@ export default class Root extends Component {
     this.state = {
       treeData: [{ title: 'Chicken', children: [ { title: 'Egg' } ] }],
     };
-    this.props.startReceiveLoop()
-    console.log("module receive root constructor       ")
+    this.props.startReceiveLoop();
+  }
+
+  handleReceivedMessage = (event, arg) => {
+    if(arg.messages.length == 0 && arg.unknowns.length == 0) return;
+    this.props.receivedMessages(arg);
+  }
+
+  componentWillMount() {
+    ipcRenderer.on('replay:acquire:received', this.handleReceivedMessage);
+    ipcRenderer.send('action:acquire:received');
+
   }
 
   componentWillUnmount() {
-    this.props.stopReceiveLoop()
+    ipcRenderer.removeListener('replay:acquire:received', this.handleReceivedMessage);
+    ipcRenderer.send('action:stop:received');
   }
 
   render() {
@@ -65,20 +74,37 @@ export default class Root extends Component {
     delegatesMap.set(forMessage, MessageItemView)
     delegatesMap.set(forSignal, SignalItemView)
 
-    const { known, unknown, all } = this.props
+    const {
+      signalIds,
+      unknownIds,
+      intl: {
+        formatMessage
+      },
+    } = this.props
 
-    console.log("known is            ", known, "all is      ", all);
-    if(all.length == 0) return (
-      <div>empty</div>
-    )
-    console.log("ListView is     ", ListView, "        MessageItemView is   ", MessageItemView);
     return (
       <div className={s.container}>
-        <ListView
-          list={all}
-          delegatesMap={delegatesMap}
-          windowScrollerEnabled={false}
-        />
+        { signalIds.length == 0 ?
+            <EmptyView
+              emptyMessage={formatMessage({id: "no_data"})}
+            /> :
+            <ListView
+              list={signalIds}
+              itemView={SignalItemView}
+              windowScrollerEnabled={false}
+              />
+        }
+        <br />
+        { unknownIds.length == 0 ?
+            <EmptyView
+              emptyMessage={formatMessage({id: "no_data"})}
+            /> :
+            <ListView
+              list={unknownIds}
+              itemView={UnknownMessageView}
+              windowScrollerEnabled={false}
+              />
+        }
       </div>
     );
   }

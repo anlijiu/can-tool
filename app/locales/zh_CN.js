@@ -10,7 +10,8 @@ const zh_CN = {
   all_files: "所有文件",
   load_signals_defination_file: "加载信号定义文件",
   out_of_range_min_max: '超出范围: {min}-{max}',
-  error: "错误"
+  error: "错误",
+  no_data: "无数据",
 }
 
 export default zh_CN;

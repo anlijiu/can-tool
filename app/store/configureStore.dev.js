@@ -25,7 +25,7 @@ const configureStore = (initialState?: counterStateType) => {
     level: 'info',
     collapsed: true
   });
-  middleware.push(logger);
+  // middleware.push(logger);
 
   // Router Middleware
   const router = routerMiddleware(history);

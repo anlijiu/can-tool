@@ -1,12 +1,15 @@
 // const { Agent, IntelligenceAgency } = require('bindings')('can')
 import { entries } from '../utils/object'
 import can from 'node-can'
-const {ipcMain} = require('electron')
+import IntelligenceAgeny from './intelligence-agency'
+const { ipcMain } = require('electron')
 
 export default class Agent {
-  constructor() {
+  constructor(win) {
     this._instance = new can.Agent()
     this.registerRendererEvents()
+    this.win = win;
+    console.log("Agent  constructor win is ", this.win);
   }
 
   get weapons() {
@@ -25,10 +28,27 @@ export default class Agent {
     this._instance.ceaseFire()
   }
 
+  acquireReceiveMessage = () => {
+    console.log("Agent  acquireReceiveMessage win is ", this.win);
+    const m  = this._instance.acquireReceivedMessage();
+    if(m.messages && m.messages[0])
+      console.log("action:acquire:received signal is ", m.messages[0].signals);
+    if(m.messages.length != 0 || m.unknowns.length != 0)
+      this.win.webContents.send.apply(this.win.webContents, ["replay:acquire:received", m]);
+  }
+
   registerRendererEvents() {
     ipcMain.on('action:acquire:received', (event, arg) => {
-      const m  = this._instance.acquireReceivedMessage();
-      event.sender.send('replay:acquire:received', m)
+      if(!this.timer) {
+        this.timer = setInterval(this.acquireReceiveMessage,1000);
+      }
+    })
+
+    ipcMain.on('action:stop:received', (event, arg) => {
+      if(this.timer) {
+        clearInterval(this.timer);
+        this.timer = null;
+      }
     })
 
 
