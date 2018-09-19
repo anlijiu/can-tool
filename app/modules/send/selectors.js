@@ -6,7 +6,7 @@ export const sendSelector = state => state.send
 export const sendingSelector = state => state.send.sending
 export const focusedMessageSelector = state => state.send.focusedMessage
 export const selectedMessageIdsSelector = state => state.send.selectedMessageIds
-export const _signalOfFocusedMessage = state => state.send.focusedMessage ? state.send.focusedMessage.signal : []
+export const _signalOfFocusedMessage = state => state.send.focusedMessage ? state.send.focusedMessage.signals : []
 export const sendingStreamSelector = state => state.send.stream
 
 export const signalOfFocusedMessage = createSelector(

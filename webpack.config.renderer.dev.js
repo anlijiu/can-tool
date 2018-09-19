@@ -135,10 +135,27 @@ export default merge.smart(baseConfig, {
         }
       },
       {
-        test: /\.global\.css$/,
+        test: new RegExp(`^(.*\\.global).*\\.css`),
         use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              importLoaders: 1,
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: function () {
+                return postCSSConfig
+              },
+              sourceMap: 'inline'
+            }
+          },
         ]
       },
       {

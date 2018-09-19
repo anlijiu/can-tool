@@ -54,7 +54,7 @@ export default class App extends React.Component<Props> {
     console.log("   ", props)
     const { messages, signals, strategies, selectedMsgIds } = props
     console.log(selectedMsgIds)
-    if(!!messages && !!signals && !!strategies) {
+    if(!!messages && messages.length > 0 && !!signals && signals.length > 0 && !!strategies) {
       this.props.syncMetaData({messages: messages, signals: signals, strategies: strategies})
       ipcRenderer.send('action:load:ammos', selectedMsgIds)
     }

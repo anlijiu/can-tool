@@ -17,9 +17,19 @@ action$.pipe(
   switchMap(action => bindNodeCallback(fs.readFile)(action.payload.shift()).pipe(
     map(v => (v).toString('utf8')),
     flatMap(content => {
-      const message = JSON.parse(content).candb.message
-      console.log(" message     are   ", message, "  candb is ", JSON.parse(content).candb);
-      const {entities, result} = normalize(JSON.parse(content).candb.message, Schemas.MESSAGE_META_ARRAY)
+      let obj = JSON.parse(content);
+      let messages = Object.keys(obj.messages).map(key => {
+        let message = obj.messages[key];
+        message.id = key;
+        let signals = message.signals;
+        message.signals = Object.keys(signals).map(signalId => {
+          signals[signalId].name = signalId;
+          return signals[signalId];
+        })
+        return message;
+       })
+
+      const {entities, result} = normalize(messages, Schemas.MESSAGE_META_ARRAY)
       console.log(" entities     is    ", entities, " result is", result)
       let strategies = {};
 

@@ -29,7 +29,6 @@ export default class Agent {
   }
 
   acquireReceiveMessage = () => {
-    console.log("Agent  acquireReceiveMessage win is ", this.win);
     const m  = this._instance.acquireReceivedMessage();
     if(m.messages && m.messages[0])
       console.log("action:acquire:received signal is ", m.messages[0].signals);
@@ -63,10 +62,9 @@ export default class Agent {
         event.returnValue = 'error'
         return
       }
-      console.log("agent.js receive action:sync:meta, params are ", Object.values(messages), Object.values(signals), Object.entries(strategies))
       event.returnValue = 'done'
       this._instance.syncMetaData(Object.values(messages), Object.values(signals), Object.entries(strategies))
-      // event.sender.send('action:sync:meta', 'done')
+      event.sender.send('action:sync:meta', 'done')
     })
     ipcMain.on('action:load:ammos', (event, msgIds) => {
       event.returnValue = 'done'

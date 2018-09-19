@@ -9,8 +9,8 @@ import { mergeDeep } from '../../utils/mergeDeep'
 import types from "./types";
 
 const initialState = {
-  messages: null,
-  signals: null,
+  messages: {},
+  signals: {},
 };
 
 const reducer = handleActions({

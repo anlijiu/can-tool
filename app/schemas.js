@@ -2,7 +2,7 @@ import { normalize, schema } from 'normalizr'
 
 const signalMetaItemSchema = new schema.Entity('signals', {}, { idAttribute: 'name' })
 const messageMetaItemSchema = new schema.Entity('messages', {
-  signal: new schema.Array(signalMetaItemSchema),
+  signals: new schema.Array(signalMetaItemSchema),
 })
 const messageMetaListSchema = new schema.Array(messageMetaItemSchema)
 

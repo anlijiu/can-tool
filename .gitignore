@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+421.json
 
 # Runtime data
 pids

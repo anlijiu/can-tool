@@ -59,7 +59,6 @@ const rowRenderer = (props) => (params) =>{
     ItemComponent = (props) => (<div>no item container view</div>)
   }
 
-  console.log("  Listview rowRenderer item is ", item, " ItemComponent is ", ItemComponent)
   return (
       <CellMeasurer
       cache={cache}

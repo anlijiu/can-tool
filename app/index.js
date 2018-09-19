@@ -6,7 +6,7 @@ import moment from 'moment'
 import App from './containers/App';
 // import {configureStore, history} from './store/configureStore';
 import _configureStore from './store/configureStore';
-import './app.global.css';
+import globalcss from './app.global.css';
 import zh_CN from './locales/zh_CN';
 import en from './locales/en';
 const { app } = require('electron').remote
