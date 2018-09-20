@@ -1,5 +1,5 @@
 const zh_CN = {
-  title: "CAN 小工具",
+  title: "开始发送",
   welcome:"你好！  ",
   device: "设备",
   about: "关于",

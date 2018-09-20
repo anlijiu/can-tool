@@ -23,6 +23,20 @@ export default class Root extends PureComponent {
   onClickItem = (event) => {
   }
 
+  getItemEnums = () => {
+    const {
+      item,
+    } = this.props
+
+    if(item.enums) return (
+      <div>
+        enums:
+        {Object.keys(item.enums).map(function(key, i){
+          return (<div style={{paddingLeft: '15px'}}>{key}: {item.enums[key]} </div>);
+        })}
+      </div>);
+  }
+
   render() {
     const {
       item,
@@ -41,6 +55,8 @@ export default class Root extends PureComponent {
           <div>scaling: {item.scaling}</div>
           <div>maximum: {item.maximum}</div>
           <div>minimum: {item.minimum}</div>
+
+          {this.getItemEnums()}
         </div>}
         children={
           <div className={s.container}

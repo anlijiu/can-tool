@@ -3,6 +3,7 @@ import { compose } from 'recompose';
 import s from './EmptyView.css'
 import { injectIntl } from "react-intl"
 import Icon from '@material-ui/core/Icon';
+import ListAltSharp from '@material-ui/icons/ListAltSharp'
 import Typography from '@material-ui/core/Typography';
 
 export default class EmptyView extends React.PureComponent {
@@ -19,7 +20,7 @@ export default class EmptyView extends React.PureComponent {
     return (
       <div className={s.container} onClick={handleClick}>
         <div className={s.content}>
-          <Icon color="disabled">insert_drive_file</Icon>
+          <ListAltSharp />
           <Typography type="title" color="default" noWrap>
             {emptyMessage}
           </Typography>

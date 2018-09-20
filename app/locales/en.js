@@ -1,5 +1,5 @@
 const en = {
-  title: "CAN tool",
+  title: "Start sending",
   welcome:"welcome",
   device: "Device",
   about: "About",
