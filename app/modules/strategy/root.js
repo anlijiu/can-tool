@@ -12,6 +12,7 @@ import { injectIntl } from "react-intl"
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import Notifications from 'react-notification-system-redux';
 import { success, error } from 'react-notification-system-redux';
@@ -57,7 +58,24 @@ export default class Root extends Component {
     })
   }
 
+  handleChangeType = () => {
+    let strategy;
+    if(this.props.strategy.type === "const") {
+      strategy = Object.assign({}, this.props.strategy, { type: "sin" });
+      this.props.changeType({ type: "sin", name: this.props.name });
+    } else if(this.props.strategy.type === "sin") {
+      strategy = Object.assign({}, this.props.strategy, { type: "const" });
+      this.props.changeType({ type: "const", name: this.props.name });
+    } else {
+      return;
+    }
+    console.log("hahahaahah", strategy);
+
+    ipcRenderer.send('action:set:strategy', [this.props.name, strategy ]);
+  }
+
   handleAdd = () => {
+    console.log("strategy , handleAdd in ");
     if (this.props.strategyValue + 1 > this.props.strategy.max) {
       const {
         intl: {
@@ -78,11 +96,13 @@ export default class Root extends Component {
       })
     } else {
       this.props.add(this.props.name)
+      console.log("hahahaahah", {...this.props.strategy, value: this.props.strategyValue + 1});
       ipcRenderer.send('action:set:strategy', [this.props.name, {...this.props.strategy, value: this.props.strategyValue + 1}])
     }
   }
 
   handleMinus = () => {
+    console.log("strategy , handleMinus in ");
     if(this.props.strategyValue-1 < this.props.strategy.min) {
       const {
         intl: {
@@ -112,6 +132,7 @@ export default class Root extends Component {
       add,
       minus,
       strategyValue,
+      strategy,
       name,
     } = this.props
 
@@ -149,6 +170,33 @@ export default class Root extends Component {
           <RemoveIcon/>
         </IconButton>
 
+        <div
+          onClick={this.handleChangeType}>
+          <Button variant="contained">
+            { strategy.type }
+          </Button>
+        </div>
+
+      </div>
+
+    );
+  }
+
+  renderSinStrategy() {
+    const {
+      strategy,
+    } = this.props
+
+    return (
+      <div className={s.container}>
+
+        <div
+          onClick={this.handleChangeType}>
+          <Button variant="contained">
+            { strategy.type }
+          </Button>
+        </div>
+
       </div>
 
     );
@@ -161,6 +209,8 @@ export default class Root extends Component {
 
     if(strategy.type === 'const') {
       return this.renderConstStrategy()
-    }
+    } else if(strategy.type === 'sin') {
+      return this.renderSinStrategy()
+    } else return (<div>empty</div>);
   }
 }

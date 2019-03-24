@@ -33,11 +33,13 @@ action$.pipe(
       console.log(" entities     is    ", entities, " result is", result)
       let strategies = {};
 
-      Object.keys(entities.signals).forEach(key => strategies[key] = {
-        type: 'const',
-        value: 0,
-        max: Number(entities.signals[key].maximum),
-        min: Number(entities.signals[key].minimum)
+      Object.keys(entities.signals).forEach(key => {
+        strategies[key] = {
+          value: 0,
+          max: Number(entities.signals[key].maximum),
+          min: Number(entities.signals[key].minimum)
+        }
+        strategies[key].type = "sin";
       })
 
       // return Observable.of(loadDbcFileSuccess(JSON.parse(content)))

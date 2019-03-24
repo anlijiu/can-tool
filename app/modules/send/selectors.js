@@ -9,6 +9,12 @@ export const selectedMessageIdsSelector = state => state.send.selectedMessageIds
 export const _signalOfFocusedMessage = state => state.send.focusedMessage ? state.send.focusedMessage.signals : []
 export const sendingStreamSelector = state => state.send.stream
 
+
+export const messageSelected = createSelector(
+  (state, id) => Number(id),
+  selectedMessageIdsSelector,
+  (id, ids) => ids.includes(id)
+)
 export const signalOfFocusedMessage = createSelector(
   _signalOfFocusedMessage,
   dbcSelectors.signalDefsSelector,

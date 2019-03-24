@@ -63,7 +63,12 @@ export default class Agent {
         return
       }
       event.returnValue = 'done'
+      console.log(messages);
+      console.log(signals);
+      console.log(strategies);
+
       this._instance.syncMetaData(Object.values(messages), Object.values(signals), Object.entries(strategies))
+
       event.sender.send('action:sync:meta', 'done')
     })
     ipcMain.on('action:load:ammos', (event, msgIds) => {

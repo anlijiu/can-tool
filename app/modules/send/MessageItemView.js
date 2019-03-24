@@ -7,7 +7,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import sendActions from "./actions";
 import s from './MessageItemView.css'
 import classNames from 'classnames/bind'
-import { selectedMessageIdsSelector, focusedMessageSelector } from './selectors'
+import { selectedMessageIdsSelector, messageSelected, focusedMessageSelector } from './selectors'
 
 const { ipcRenderer }= require('electron')
 const cx = classNames.bind(s);
@@ -17,6 +17,7 @@ const cx = classNames.bind(s);
 const mapStateToProps = (state, ownProps) => {
   return {
     selectedMsgIds: selectedMessageIdsSelector(state),
+    isMessageSelected: messageSelected(state, ownProps.item.id),
     focusedMessageItem: focusedMessageSelector(state),
   }
 }
@@ -56,6 +57,7 @@ export default class Root extends Component {
     const {
       item,
       selectedMsgIds,
+      isMessageSelected,
       focusedMessageItem,
     } = this.props
 
@@ -65,12 +67,13 @@ export default class Root extends Component {
       focused: !!focusedMessageItem ? focusedMessageItem.id == item.id : false
     })
 
-    let isChecked = selectedMsgIds.includes(Number(item.id))
+    console.log("MessageItemView  isMessageSelected ", isMessageSelected)
+
     return (
       <div className={containerClass} onClick={this.onClickItem} >
         <Checkbox
-          checked={isChecked}
-          onClick={() => this.onClickCheckbox(item, !isChecked) }/>
+          checked={isMessageSelected}
+          onClick={() => this.onClickCheckbox(item, !isMessageSelected) }/>
         <div className={s.current}>
           {item.name}
         </div>

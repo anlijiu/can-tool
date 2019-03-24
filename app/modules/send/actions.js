@@ -14,6 +14,7 @@ export const stopSend = createAction(types.STOP_SEND_ACTION, ( payload = { messa
 export const afterStartSend = createAction(types.AFTER_START_SEND_ACTION, ( payload ) => ( payload ))
 export const sendAlreadyStarted = createAction(types.SEND_ALREADY_STARTED)
 export const selectMessage = createAction(types.SELECT_MESSAGE_ACTION, ( payload ) => ( payload ))
+export const selectMessages = createAction(types.SELECT_MESSAGE_LIST_ACTION)
 export const focusOnMessage = createAction(types.FOCUS_ON_MESSAGE_ACTION, payload => payload)
 export default {
   startSend,
@@ -21,5 +22,6 @@ export default {
   sendAlreadyStarted,
   afterStartSend,
   selectMessage,
+  selectMessages,
   focusOnMessage
 }

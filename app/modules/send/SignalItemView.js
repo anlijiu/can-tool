@@ -18,9 +18,11 @@ export default class Root extends PureComponent {
     isOpen: false,
   }
   toggle(toState = null) {
+    console.log("SignalItemView  toggle in");
     this.setState({ isOpen: toState === null ? !this.state.isOpen : toState })
   }
   onClickItem = (event) => {
+    console.log("SignalItemView  onClickItem in");
   }
 
   getItemEnums = () => {
@@ -60,6 +62,7 @@ export default class Root extends PureComponent {
         </div>}
         children={
           <div className={s.container}
+            key={item.name}
             onMouseOver={() => this.toggle(true)}
             onMouseOut={() => this.toggle(false)}
             onClick={this.onClickItem} >

@@ -7,7 +7,8 @@ import {
   SEND_ALREADY_STARTED,
   AFTER_START_SEND_ACTION,
   SELECT_MESSAGE_ACTION,
-  FOCUS_ON_MESSAGE_ACTION
+  SELECT_MESSAGE_LIST_ACTION,
+  FOCUS_ON_MESSAGE_ACTION,
 } from './types'
 
 const emptyFrame = {
@@ -31,6 +32,7 @@ const reducer = handleActions({
   ),
   [AFTER_START_SEND_ACTION]: (state, {payload}) => ({ ...state, stream: payload}),
   [SEND_ALREADY_STARTED]: (state) => state ,
+  [SELECT_MESSAGE_LIST_ACTION] : (state, {payload}) => ({ ...state, selectedMessageIds: [...payload.ids ] }),
   [SELECT_MESSAGE_ACTION]:  (state, {payload}) => {
     console.log(payload)
     let ids = payload.isChecked ?  [

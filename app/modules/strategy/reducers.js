@@ -48,6 +48,15 @@ const reducer = handleActions({
         ...state[payload.key],
         value: isNaN(payload.value) ? 0 : payload.value}
     }
+  },
+  [types.CHANGE_TYPE]: (state, {payload}) => {
+    console.log(" strategey reducer change type payload is ", payload)
+    return  {
+      ...state,
+      [payload.name]: {
+        ...state[payload.name],
+        type: payload.type }
+    }
   }
 }, initialState);
 
