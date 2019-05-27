@@ -1,1 +1,1 @@
-npm run dev
+npm run dev | tee a.log

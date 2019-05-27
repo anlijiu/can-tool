@@ -39,7 +39,7 @@ action$.pipe(
           max: Number(entities.signals[key].maximum),
           min: Number(entities.signals[key].minimum)
         }
-        strategies[key].type = "sin";
+        strategies[key].type = "const";
       })
 
       // return Observable.of(loadDbcFileSuccess(JSON.parse(content)))
